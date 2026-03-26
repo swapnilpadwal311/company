@@ -1,55 +1,120 @@
 pipeline {
-    agent {
-        label "11"
-        label "12"
-    }
+    agent none
+
     stages {
+        stage("Deploy on Both Nodes") {
+            parallel {
 
-        stage("Checkout Q1") {
-            steps {
-                dir("Q1") {
-                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q1'
-                }
-            }
-        }
+                stage("Node 11") {
+                    agent { label "11" }
 
-        stage("Run c1") {
-            steps {
-                script {
-                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}/q1:/usr/local/apache2/htdocs/ --name c1")
-                }
-            }
-        }
+                    stages {
 
-        stage("Checkout Q2") {
-            steps {
-                dir("Q2") {
-                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q2'
-                }
-            }
-        }
+                        stage("Checkout Q1") {
+                            steps {
+                                dir("Q1") {
+                                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q1'
+                                }
+                            }
+                        }
 
-        stage("Run c2") {
-            steps {
-                script {
-                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}/q2:/usr/local/apache2/htdocs/ --name c2")
-                }
-            }
-        }
+                        stage("Run c1") {
+                            steps {
+                                script {
+                                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}/Q1:/usr/local/apache2/htdocs/ --name c1-${BUILD_ID}")
+                                }
+                            }
+                        }
 
-        stage("Checkout Q3") {
-            steps {
-                dir("Q3") {
-                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q3'
-                }
-            }
-        }
+                        stage("Checkout Q2") {
+                            steps {
+                                dir("Q2") {
+                                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q2'
+                                }
+                            }
+                        }
 
-        stage("Run c3") {
-            steps {
-                script {
-                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/q3:/usr/local/apache2/htdocs/ --name c3")
+                        stage("Run c2") {
+                            steps {
+                                script {
+                                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}/Q2:/usr/local/apache2/htdocs/ --name c2-${BUILD_ID}")
+                                }
+                            }
+                        }
+
+                        stage("Checkout Q3") {
+                            steps {
+                                dir("Q3") {
+                                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q3'
+                                }
+                            }
+                        }
+
+                        stage("Run c3") {
+                            steps {
+                                script {
+                                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/Q3:/usr/local/apache2/htdocs/ --name c3-${BUILD_ID}")
+                                }
+                            }
+                        }
+                    }
                 }
+
+                stage("Node 12") {
+                    agent { label "12" }
+
+                    stages {
+
+                        stage("Checkout Q1") {
+                            steps {
+                                dir("Q1") {
+                                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q1'
+                                }
+                            }
+                        }
+
+                        stage("Run c1") {
+                            steps {
+                                script {
+                                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}/Q1:/usr/local/apache2/htdocs/ --name c1-${BUILD_ID}")
+                                }
+                            }
+                        }
+
+                        stage("Checkout Q2") {
+                            steps {
+                                dir("Q2") {
+                                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q2'
+                                }
+                            }
+                        }
+
+                        stage("Run c2") {
+                            steps {
+                                script {
+                                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}/Q2:/usr/local/apache2/htdocs/ --name c2-${BUILD_ID}")
+                                }
+                            }
+                        }
+
+                        stage("Checkout Q3") {
+                            steps {
+                                dir("Q3") {
+                                    git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q3'
+                                }
+                            }
+                        }
+
+                        stage("Run c3") {
+                            steps {
+                                script {
+                                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/Q3:/usr/local/apache2/htdocs/ --name c3-${BUILD_ID}")
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
