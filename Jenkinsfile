@@ -21,7 +21,7 @@ pipeline {
                         stage("Run c1") {
                             steps {
                                 script {
-                                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}/Q1:/usr/local/apache2/htdocs/ --name c1-${BUILD_ID}")
+                                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}/Q1:/usr/local/apache2/htdocs/ --name c1")
                                 }
                             }
                         }
@@ -37,7 +37,7 @@ pipeline {
                         stage("Run c2") {
                             steps {
                                 script {
-                                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}/Q2:/usr/local/apache2/htdocs/ --name c2-${BUILD_ID}")
+                                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}/Q2:/usr/local/apache2/htdocs/ --name c2")
                                 }
                             }
                         }
@@ -53,7 +53,7 @@ pipeline {
                         stage("Run c3") {
                             steps {
                                 script {
-                                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/Q3:/usr/local/apache2/htdocs/ --name c3-${BUILD_ID}")
+                                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/Q3:/usr/local/apache2/htdocs/ --name c3")
                                 }
                             }
                         }
@@ -76,7 +76,7 @@ pipeline {
                         stage("Run c1") {
                             steps {
                                 script {
-                                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}/Q1:/usr/local/apache2/htdocs/ --name c1-${BUILD_ID}")
+                                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}/Q1:/usr/local/apache2/htdocs/ --name c1")
                                 }
                             }
                         }
@@ -92,7 +92,7 @@ pipeline {
                         stage("Run c2") {
                             steps {
                                 script {
-                                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}/Q2:/usr/local/apache2/htdocs/ --name c2-${BUILD_ID}")
+                                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}/Q2:/usr/local/apache2/htdocs/ --name c2")
                                 }
                             }
                         }
@@ -108,7 +108,7 @@ pipeline {
                         stage("Run c3") {
                             steps {
                                 script {
-                                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/Q3:/usr/local/apache2/htdocs/ --name c3-${BUILD_ID}")
+                                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/Q3:/usr/local/apache2/htdocs/ --name c3")
                                 }
                             }
                         }
