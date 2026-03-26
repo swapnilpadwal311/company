@@ -1,6 +1,8 @@
 pipeline {
-    agent any
-
+    agent {
+        label "11"
+        label "12"
+    }
     stages {
 
         stage("Checkout Q1") {
