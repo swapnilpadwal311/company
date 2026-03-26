@@ -5,18 +5,40 @@ pipeline {
 
         stage("Checkout Code") {
             steps {
-                git url: 'https://github.com/swapnilpadwal311/company.git', branch: 'main'
-            }
-        }
-
-        stage("Run Container") {
-            steps {
+                git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q1'
+			     }
+			
+			steps {
                 script {
-                    docker.image('httpd').run("-d -p 80:80 -v ${pwd()}:/usr/local/apache2/htdocs/ --name web1")
-                    docker.image('httpd').run("-d -p 90:80 -v ${pwd()}:/usr/local/apache2/htdocs/ --name web2")
-                    docker.image('httpd').run("-d -p 8080:80 -v ${pwd()}:/usr/local/apache2/htdocs/ --name web3")
-                }
+                    docker.image('httpd').run("-dp 80:80 -v ${pwd()}:/usr/local/apache2/htdocs/ --name c1")	
+				  }
+				
+				}
             }
-        }
-    }
-}
+		stage("Checkout Code") {
+            steps {
+                git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q2'
+			     }
+			
+			steps {
+                script {
+                    docker.image('httpd').run("-dp 90:80 -v ${pwd()}:/usr/local/apache2/htdocs/ --name c2")	
+				  }
+				
+				}
+            }
+			
+		stage("Checkout Code") {
+            steps {
+                git url: 'https://github.com/swapnilpadwal311/company.git', branch: '2026Q3'
+			     }
+			
+			steps {
+                script {
+                    docker.image('httpd').run("-dp 8080:80 -v ${pwd()}:/usr/local/apache2/htdocs/ --name c3")	
+				  }
+				
+				}
+            }
+		}
+	}
