@@ -46,7 +46,7 @@ pipeline {
         stage("Run c3") {
             steps {
                 script {
-                    docker.image('httpd').run("-dp 8080:80 -v ${pwd()}/q3:/usr/local/apache2/htdocs/ --name c3")
+                    docker.image('httpd').run("-dp 70:80 -v ${pwd()}/q3:/usr/local/apache2/htdocs/ --name c3")
                 }
             }
         }
